@@ -8,38 +8,38 @@ use Rtrvrtg\PayloadBuilder\PathItem;
 final class PathItemTestCase extends TestCase {
   public function testParsesRootItem(): void {
     $item = PathItem::parseChunk(NULL);
-    $this->assertEquals($item->type(), PathItem::TYPE_ROOT);
-    $this->assertEquals($item->value(), NULL);
+    $this->assertEquals(PathItem::TYPE_ROOT, $item->type());
+    $this->assertEquals(NULL, $item->value());
   }
 
   public function testParsesArrayItem(): void {
     $item = PathItem::parseChunk('[0]');
-    $this->assertEquals($item->type(), PathItem::TYPE_ARRAY);
-    $this->assertEquals($item->value(), 0);
+    $this->assertEquals(PathItem::TYPE_ARRAY, $item->type());
+    $this->assertEquals(0, $item->value());
   }
 
   public function testParsesEmptyArrayItem(): void {
     $item = PathItem::parseChunk('[]');
-    $this->assertEquals($item->type(), PathItem::TYPE_ARRAY);
-    $this->assertEquals($item->value(), NULL);
+    $this->assertEquals(PathItem::TYPE_ARRAY, $item->type());
+    $this->assertEquals(NULL, $item->value());
   }
 
   public function testParsesObjectItem(): void {
     $item = PathItem::parseChunk('foo');
-    $this->assertEquals($item->type(), PathItem::TYPE_OBJECT);
-    $this->assertEquals($item->value(), 'foo');
+    $this->assertEquals(PathItem::TYPE_OBJECT, $item->type());
+    $this->assertEquals('foo', $item->value());
   }
 
   public function testParsesEmptyObjectItem(): void {
     $item = PathItem::parseChunk('');
-    $this->assertEquals($item->type(), PathItem::TYPE_OBJECT);
-    $this->assertEquals($item->value(), '');
+    $this->assertEquals(PathItem::TYPE_OBJECT, $item->type());
+    $this->assertEquals('', $item->value());
   }
 
   public function testParsesDotObjectItem(): void {
     $item = PathItem::parseChunk('Banjaxed.');
-    $this->assertEquals($item->type(), PathItem::TYPE_OBJECT);
-    $this->assertEquals($item->value(), 'Banjaxed.');
+    $this->assertEquals(PathItem::TYPE_OBJECT, $item->type());
+    $this->assertEquals('Banjaxed.', $item->value());
   }
 
 }

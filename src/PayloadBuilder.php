@@ -2,4 +2,6 @@
 
 namespace Rtrvrtg\PayloadBuilder;
 
-class PayloadBuilder {}
+class PayloadBuilder {
+  public function build() {}
+}

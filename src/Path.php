@@ -97,10 +97,65 @@ final class Path implements \Countable, \SeekableIterator {
     if (preg_match('/\]\.$/', $path)) {
       $path = preg_replace('/\]\.$/', ']', $path);
     }
+    $path = str_replace(']..[', '].[', $path);
     $chunks = explode('.', $path);
     return new Path(
       array_map('Rtrvrtg\PayloadBuilder\PathItem::parseChunk', $chunks)
     );
+  }
+
+  /**
+   * Put a given value at the path of this object.
+   */
+  public function putValue($object, $value) {
+    $nested = &$object;
+    $is_last = FALSE;
+    foreach ($this as $index => $part) {
+      $is_last = $index == \array_key_last($this->parts);
+      switch ($part->type()) {
+        case PathItem::TYPE_ROOT:
+          $nested = $value;
+          break;
+
+        case PathItem::TYPE_ARRAY:
+          $key = $part->value();
+          if ($is_last) {
+            if (is_null($key)) {
+              array_push($nested, $value);
+            }
+            else {
+              $nested = [$key => $value];
+            }
+          }
+          else {
+            if (!is_array($nested)) {
+              $nested = [];
+            }
+            if (is_null($key)) {
+              $nested[] = [];
+              $key = \array_key_last($nested);
+            }
+            $nested = &$nested[$key];
+          }
+          break;
+
+        case PathItem::TYPE_OBJECT:
+          if (!$is_last && !is_array($nested)) {
+            $nested = [];
+          }
+          if ($is_last) {
+            $nested[$part->value()] = $value;
+          }
+          else {
+            if (!array_key_exists($part->value(), $nested)) {
+              $nested[$part->value()] = [];
+            }
+            $nested = &$nested[$part->value()];
+          }
+          break;
+      }
+    }
+    return $object;
   }
 
 }

@@ -13,12 +13,15 @@
     "autoload": {
         "psr-4": {
             "Rtrvrtg\\PayloadBuilder\\": "src/"
-        }
+        },
+        "files": [
+            "src/Utilities.php"
+        ]
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0"
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/*"
+        "test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/PathTestCase.php tests/PathItemTestCase.php tests/UtilitiesTestCase.php"
     }
 }
