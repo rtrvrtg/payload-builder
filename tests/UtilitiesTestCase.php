@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 
-final class PathItemTestCase extends TestCase {
+final class UtilitiesTestCase extends TestCase {
   public function testArrayKeyLastExists(): void {
     $this->assertEquals(TRUE, function_exists('array_key_last'));
   }

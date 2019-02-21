@@ -40,13 +40,19 @@ class PayloadBuilderItem {
     }
   }
 
-  public function getValue() {}
+  public function type() {
+    return $this->dataType;
+  }
+
+  public function value() {
+    return $this->dataValue;
+  }
 
   public function populate($object = NULL) {
     if (is_null($object)) {
       $object = $this->newObject();
     }
-    
+    return $this->path->putValue($object, $this->dataValue);
   }
 
 }

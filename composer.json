@@ -22,6 +22,6 @@
         "phpunit/phpunit": "^8.0"
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/PathTestCase.php tests/PathItemTestCase.php tests/UtilitiesTestCase.php"
+        "test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php --coverage-html ./coverage --whitelist src/ tests/PathTestCase.php tests/PathItemTestCase.php tests/PayloadBuilderTestCase.php tests/UtilitiesTestCase.php"
     }
 }
