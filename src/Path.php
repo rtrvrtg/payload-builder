@@ -124,7 +124,7 @@ final class Path implements \Countable, \SeekableIterator {
               array_push($nested, $value);
             }
             else {
-              $nested = [$key => $value];
+              $nested[$key] = $value;
             }
           }
           else {

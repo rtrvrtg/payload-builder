@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 use Rtrvrtg\PayloadBuilder\PayloadBuilder;
 
-final class PayloadBuilderTestCase extends TestCase {
+final class PayloadBuilderTest extends TestCase {
   public function testSimpleObjectPayload(): void {
     $builder = PayloadBuilder::parse("foo.bar, string, hello\nfoo.baz, string, world");
     $object = $builder->build();

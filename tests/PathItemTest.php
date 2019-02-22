@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 use Rtrvrtg\PayloadBuilder\PathItem;
 
-final class PathItemTestCase extends TestCase {
+final class PathItemTest extends TestCase {
   public function testParsesRootItem(): void {
     $item = PathItem::parseChunk(NULL);
     $this->assertEquals(PathItem::TYPE_ROOT, $item->type());

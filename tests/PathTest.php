@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Rtrvrtg\PayloadBuilder\Path;
 use Rtrvrtg\PayloadBuilder\PathItem;
 
-final class PathItemTestCase extends TestCase {
+final class PathTest extends TestCase {
   public function testParsesRootPath(): void {
     $path = Path::parsePath('');
     $this->assertEquals(1, $path->count());
