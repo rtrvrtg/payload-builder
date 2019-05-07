@@ -5,6 +5,8 @@ namespace Rtrvrtg\PayloadBuilder;
 use Rtrvrtg\PayloadBuilder\Path;
 use Rtrvrtg\PayloadBuilder\PathItem;
 
+require_once dirname(__FILE__) . '/Utilities.php';
+
 class PayloadBuilderItem {
 
   public const TYPE_STRING = 'string';

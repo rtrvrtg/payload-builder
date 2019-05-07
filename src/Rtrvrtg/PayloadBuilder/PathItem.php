@@ -6,6 +6,8 @@
 
 namespace Rtrvrtg\PayloadBuilder;
 
+require_once dirname(__FILE__) . '/Utilities.php';
+
 /**
  * Defines a part of a JSON object path.
  */

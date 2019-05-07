@@ -2,8 +2,13 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Rtrvrtg\PayloadBuilder\PayloadBuilder;
 
 final class UtilitiesTest extends TestCase {
+  public function setUp():void {
+    $force = new PayloadBuilder([]);
+  }
+
   public function testArrayKeyLastExists(): void {
     $this->assertEquals(TRUE, function_exists('array_key_last'));
   }

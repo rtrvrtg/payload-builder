@@ -5,6 +5,8 @@ namespace Rtrvrtg\PayloadBuilder;
 use Rtrvrtg\PayloadBuilder\PayloadBuilderItem;
 use Rtrvrtg\PayloadBuilder\Path;
 
+require_once dirname(__FILE__) . '/Utilities.php';
+
 class PayloadBuilder {
   protected $items;
 
