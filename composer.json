@@ -13,10 +13,10 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Rtrvrtg\\PayloadBuilder\\": "src/"
+            "Rtrvrtg\\PayloadBuilder\\": "src/Rtrvrtg/PayloadBuilder"
         },
         "files": [
-            "src/Utilities.php"
+            "src/Rtrvrtg/PayloadBuilder/Utilities.php"
         ]
     },
     "require-dev": {
