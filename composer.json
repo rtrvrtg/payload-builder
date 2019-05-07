@@ -3,6 +3,7 @@
     "description": "Builds JSON payloads.",
     "type": "library",
     "license": "ISC",
+    "version": "0.1.0",
     "authors": [
         {
             "name": "Geoffrey Roberts",
