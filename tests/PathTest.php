@@ -106,4 +106,28 @@ final class PathTest extends TestCase {
     $this->assertSame([['foo' => 'bar']], $object);
   }
 
+  public function testComplex1(): void {
+    $path = Path::parsePath('foo.bar[0]foo');
+    $object = $path->putValue(NULL, 'baz');
+    $this->assertSame([
+      'foo' => [
+        'bar' => [
+          ['foo' => 'baz'],
+        ],
+      ],
+    ], $object);
+  }
+
+  public function testComplex2(): void {
+    $path = Path::parsePath('foo.bar[0].foo');
+    $object = $path->putValue(NULL, 'baz');
+    $this->assertSame([
+      'foo' => [
+        'bar' => [
+          ['foo' => 'baz'],
+        ],
+      ],
+    ], $object);
+  }
+
 }

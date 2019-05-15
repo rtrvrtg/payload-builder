@@ -92,14 +92,32 @@ final class Path implements \Countable, \SeekableIterator {
     if (empty($path)) {
       return new Path([new PathItem(PathItem::TYPE_ROOT)]);
     }
+
+    // Breaks out brackets and stops them with periods.
     $path = preg_replace(['/\[/', '/\]/'], ['.[', '].'], $path);
+
+    // Replace `.[` with just a `[`.
     if (preg_match('/^\.\[/', $path)) {
       $path = preg_replace('/^\.\[/', '[', $path);
     }
-    if (preg_match('/\]\.$/', $path)) {
-      $path = preg_replace('/\]\.$/', ']', $path);
+
+    // Replace all `]....` with just a `].`.
+    // Handles multiple periods to handle cases like foo.bar[0].baz.
+    if (preg_match('/\]\.+/', $path)) {
+      $path = preg_replace('/\]\.+/', '].', $path);
     }
+
+    // Replace `].` at the end of a selector with just a `]`.
+    if (preg_match('/\]\.+$/', $path)) {
+      $path = preg_replace('/\]\.+$/', ']', $path);
+    }
+
+    // Replace `]..[` with `].[`.
     $path = str_replace(']..[', '].[', $path);
+
+    // Finally, splits on `.` before parsing each chunk.
+    // We need to keep the brackets around integer values to denote that
+    // they indicate a numeric array index.
     $chunks = explode('.', $path);
     return new Path(
       array_map('Rtrvrtg\PayloadBuilder\PathItem::parseChunk', $chunks)
@@ -112,13 +130,16 @@ final class Path implements \Countable, \SeekableIterator {
   public function putValue($object, $value) {
     $nested = &$object;
     $is_last = FALSE;
+
     foreach ($this as $index => $part) {
       $is_last = $index == \array_key_last($this->parts);
       switch ($part->type()) {
+        // If this is the root path item, just set the root value.
         case PathItem::TYPE_ROOT:
           $nested = $value;
           break;
 
+        // If it's an array, work out which index we want to set the value.
         case PathItem::TYPE_ARRAY:
           $key = $part->value();
           if ($is_last) {
@@ -141,6 +162,7 @@ final class Path implements \Countable, \SeekableIterator {
           }
           break;
 
+        // If it's an object, work out what key to set the value.
         case PathItem::TYPE_OBJECT:
           if (!$is_last && !is_array($nested)) {
             $nested = [];
